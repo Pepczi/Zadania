@@ -17,17 +17,16 @@ shop_stock = [
     ]
 shop_history = []
 
-#Zwraca listę list w której elementy to wartości kluczy z listy słowników.
 def items_list(stock):
+    """Zwraca listę list w której elementy to wartości kluczy z listy słowników."""
     temp_value = []
     for i in range(len(stock)):
         temp_value.append(list(stock[i].values()))
     return temp_value
 
 
-# Funkcja table_size() zwraca liste 4 elementów, w którym każdy z elementów odpowiada za
-# najdłuższy ciąg tekstowy w danej kolumnie.
 def table_size(stock):
+    """Zwraca liste 4 elementów, w którym każdy z elementów odpowiada za najdłuższy ciąg tekstowy w danej kolumnie."""
     colWidth = [0] * len(stock[0])
     list_of_items = items_list(stock)
     for i in range(len(list_of_items[0])):
@@ -37,10 +36,8 @@ def table_size(stock):
     return colWidth
 
 
-#Print tabeli z przedmiotami, problem przy dostosowywaniu odległości. Musiałem podać dokładną liczbę
-#(zazwczaj równą długości ciągu tekstowego)
-#zamiast zmiennej, przez co nie wiem jak sie zachowa tabela wraz z dodawanymi innymi wartościami....
 def table_print(stock):
+    """Print tabeli z przedmiotami, problem przy dostosowywaniu odległości."""
     table_adjust = table_size(stock)
     sum_of_elements = sum(table_adjust)
     if stock == shop_stock:
@@ -57,6 +54,7 @@ def table_print(stock):
 
 
 def greetings():
+    """Wydrukowanie powitania."""
     print('''I wtedy ona mi mówi...
 O! Nie zauważyłem Cię. Mam nadzieję, że nie usłyszałeś za dużo...
 Witaj w moim małym sklepiku, chętnie ubiję z Tobą ofertę.
@@ -70,6 +68,7 @@ Aby... Wpisz:
 
 
 def selling(stock):
+    """Sprzedaż przedmiotów ze sklepu."""
     client_input = input('Który z moich towarów Cię interesuje?').title()
     list_of_items = items_list(stock)
     item_detail = []
@@ -89,6 +88,7 @@ def selling(stock):
 
 
 def buying():
+    """Kupowanie przedmiotów przez sklep."""
     print('Zawsze kupię coś od zacnych poszukiwaczy, muszę tylko poznać szczegóły tego przedmiotu...')
     name_input = input('Nazwa przedmiotu: ')
     quantity_input = input('Ilość jaką chcesz sprzedać: ')
@@ -99,6 +99,7 @@ def buying():
     print('Handel z Tobą to czysta przyjemność')
 
 def revenue():
+    """Obliczanie salda."""
     items_bought = items_list(shop_stock)
     bought = 0
     for i in range(len(items_bought)):
@@ -112,18 +113,22 @@ def revenue():
 
 #TO DO: EKSPORT I IMPORT DO PLIKÓW CSV
 def export_items_to_csv():
-    pass
-def export_sales_to_csv():
-    pass
-def load_items_from_csv():
-    pass
+    raise NotImplementedError
+    
+def export_sales_to_csv():    
+    raise NotImplementedError
+
+def load_items_from_csv():    
+    raise NotImplementedError
+
 
 
 def interface():
+    """Główna pętla programu."""
     greetings()
     client_input = ''
     while client_input != 'exit':
-        client_input = input('Co zatem chcesz zrobić? ').lower()
+        client_input = input('Co zatem chcesz zrobić? ').lower().strip()
         if client_input == 'show':
             table_print(shop_stock)
         if client_input == 'sell':
@@ -137,5 +142,6 @@ def interface():
             revenue()  
     print('Do zobaczenia!')
 
-interface()
+if __name__ == "__main__":
+    interface()
 
